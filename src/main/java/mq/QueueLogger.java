@@ -19,7 +19,7 @@ public class QueueLogger implements MessageListener {
     String queueName = args[1];
 
     MessageListener queueLogger = new QueueLogger();
-    QueueManager.listenTo(brokerUrl, queueName, queueLogger);
+    DestinationManager.listenToQueue(brokerUrl, queueName, queueLogger);
   }
 
   public void onMessage(Message message) {

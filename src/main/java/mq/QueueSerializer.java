@@ -28,7 +28,7 @@ public class QueueSerializer implements MessageListener {
     String queueName = args[1];
 
     MessageListener queueSerializer = new QueueSerializer();
-    QueueManager.listenTo(brokerUrl, queueName, queueSerializer);
+    DestinationManager.listenToQueue(brokerUrl, queueName, queueSerializer);
   }
 
   public QueueSerializer() throws IOException {

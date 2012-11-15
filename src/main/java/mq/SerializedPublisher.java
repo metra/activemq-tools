@@ -27,7 +27,7 @@ public class SerializedPublisher {
     String queueName = args[1];
     String filename = args[2];
 
-    QueueManager.SessionAndProducer sessionAndProducer = QueueManager.createSessionAndProducer(brokerUrl, queueName);
+    DestinationManager.SessionAndProducer sessionAndProducer = DestinationManager.createSessionAndProducer(brokerUrl, queueName);
 
     BlockingQueue<SolrInputDocument> publishQueue = new LinkedBlockingDeque<SolrInputDocument>();
     SerializedPublisher serializedPublisher = new SerializedPublisher(filename, publishQueue);
