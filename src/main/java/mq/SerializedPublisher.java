@@ -76,5 +76,10 @@ public class SerializedPublisher {
         logger.error("", e);
       }
     }
+    try {
+      publishQueue.put(null);
+    } catch (InterruptedException e) {
+      logger.error("", e);
+    }
   }
 }

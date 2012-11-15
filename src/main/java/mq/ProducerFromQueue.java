@@ -30,6 +30,11 @@ public class ProducerFromQueue<T> implements Runnable {
       try {
         T input = blockingQueue.take();
 
+        if (input == null) {
+          // Poison pill.
+          System.exit(0);
+        }
+
         ObjectMessage objectMessage;
         try {
           objectMessage = session.createObjectMessage((Serializable)input);
