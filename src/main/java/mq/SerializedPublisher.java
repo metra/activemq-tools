@@ -19,7 +19,8 @@ public class SerializedPublisher {
   public static void main(String[] args) throws JMSException, IOException {
 
     if (args.length != 3) {
-      logger.error("incorrect args given. usage: " + QueueSerializer.class.getSimpleName() + " <broker host:port> <queue name> <serialized file>");
+      System.out.println("incorrect args given. usage: " + QueueSerializer.class.getSimpleName() + " <broker host:port> <queue name> <serialized file>");
+      return;
     }
 
     String brokerUrl = args[0];
