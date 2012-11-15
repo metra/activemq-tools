@@ -1,5 +1,6 @@
 package mq;
 
+import org.apache.solr.common.SolrInputDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,8 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import java.io.Serializable;
 import java.util.concurrent.BlockingQueue;
+
+import static mq.SerializedPublisher.POISON_PILL;
 
 public class ProducerFromQueue<T> implements Runnable {
 
@@ -30,7 +33,7 @@ public class ProducerFromQueue<T> implements Runnable {
       try {
         T input = blockingQueue.take();
 
-        if (input == null) {
+        if (POISON_PILL.equals(input)) {
           // Poison pill.
           System.exit(0);
         }

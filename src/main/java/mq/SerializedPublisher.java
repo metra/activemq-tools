@@ -11,6 +11,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 public class SerializedPublisher {
 
+  public static final SolrInputDocument POISON_PILL = new SolrInputDocument();
   private static final Logger logger = LoggerFactory.getLogger(SerializedPublisher.class);
 
   private final String serializedFile;
@@ -77,7 +78,7 @@ public class SerializedPublisher {
       }
     }
     try {
-      publishQueue.put(null);
+      publishQueue.put(POISON_PILL);
     } catch (InterruptedException e) {
       logger.error("", e);
     }
