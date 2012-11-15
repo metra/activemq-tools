@@ -12,26 +12,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class QueueSerializer implements MessageListener {
+public class Serializer implements MessageListener {
 
-  private static final Logger logger = LoggerFactory.getLogger(QueueSerializer.class);
+  private static final Logger logger = LoggerFactory.getLogger(Serializer.class);
 
   private final ObjectOutputStream objectOutputStream;
 
   public static void main(String[] args) throws JMSException, IOException {
 
-    if (args.length != 2) {
-      logger.error("incorrect args given. usage: " + QueueSerializer.class.getSimpleName() + " <broker host:port> <queue name>");
+    if (args.length != 3) {
+      logger.error("usage: " + Serializer.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
     }
 
     String brokerUrl = args[0];
     String queueName = args[1];
+    String destinationSelection = args[2];
 
-    MessageListener queueSerializer = new QueueSerializer();
-    DestinationManager.listenToQueue(brokerUrl, queueName, queueSerializer);
+    MessageListener serializer = new Serializer();
+    if ("queue".equals(destinationSelection)) {
+      DestinationManager.listenToQueue(brokerUrl, queueName, serializer);
+    } else if ("topic".equals(destinationSelection)) {
+      DestinationManager.listenToTopic(brokerUrl, queueName, serializer);
+    } else {
+      logger.error("usage: " + Serializer.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
+    }
   }
 
-  public QueueSerializer() throws IOException {
+  public Serializer() throws IOException {
     FileOutputStream fileOutputStream = new FileOutputStream("queue.ser");
     objectOutputStream = new ObjectOutputStream(fileOutputStream);
   }
