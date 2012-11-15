@@ -35,6 +35,7 @@ public class ProducerFromQueue<T> implements Runnable {
 
         if (POISON_PILL.equals(input)) {
           // Poison pill.
+          System.out.println("finished publishing serialized file");
           System.exit(0);
         }
 
