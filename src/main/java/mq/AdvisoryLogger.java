@@ -16,20 +16,16 @@ public class AdvisoryLogger implements MessageListener {
   private static final Logger logger = LoggerFactory.getLogger(AdvisoryLogger.class);
 
   public static void main(String[] args) throws JMSException {
+    logger.info("starting");
 
-    if (args.length != 2) {
-      logger.error("incorrect args given. usage: " + AdvisoryLogger.class.getSimpleName() + " <broker host:port> <topic name>");
+    if (args.length != 1) {
+      logger.error("incorrect args given. usage: " + AdvisoryLogger.class.getSimpleName() + " <broker host:port>");
     }
 
     String brokerUrl = args[0];
-    String topicName = args[1];
 
-    BasicConfigurator.configureDefaultContext();
-
-    logger.info("starting");
-
-    AdvisoryLogger topicLogger = new AdvisoryLogger();
-    DestinationManager.listenToTopic(brokerUrl, topicName, topicLogger);
+    AdvisoryLogger advisoryLogger = new AdvisoryLogger();
+    DestinationManager.listenToTopic(brokerUrl, "ActiveMQ.Advisory.>", advisoryLogger);
   }
 
   public void onMessage(Message message) {
