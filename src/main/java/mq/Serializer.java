@@ -21,7 +21,7 @@ public class Serializer implements MessageListener {
   public static void main(String[] args) throws JMSException, IOException {
 
     if (args.length != 3) {
-      logger.error("usage: " + Serializer.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
+      printUsage();
     }
 
     String brokerUrl = args[0];
@@ -34,7 +34,7 @@ public class Serializer implements MessageListener {
     } else if ("topic".equals(destinationSelection)) {
       DestinationManager.listenToTopic(brokerUrl, queueName, serializer);
     } else {
-      logger.error("usage: " + Serializer.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
+      printUsage();
     }
   }
 
@@ -62,5 +62,9 @@ public class Serializer implements MessageListener {
     } catch (IOException e) {
       logger.error("", e);
     }
+  }
+
+  private static void printUsage() {
+    System.out.println("usage: " + Serializer.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
   }
 }
