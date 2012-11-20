@@ -1,7 +1,6 @@
 package mq;
 
 
-import ch.qos.logback.classic.BasicConfigurator;
 import org.apache.activemq.command.ActiveMQMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
 
 public class AdvisoryLogger implements MessageListener {
 
@@ -30,7 +28,7 @@ public class AdvisoryLogger implements MessageListener {
 
   public void onMessage(Message message) {
     ActiveMQMessage activeMQMessage = (ActiveMQMessage) message;
-    logger.info("received message " + activeMQMessage.getDataStructure());
-    logger.info("text: " + activeMQMessage);
+    logger.info("advisory message: " + activeMQMessage);
+    logger.info("data structure: " + activeMQMessage.getDataStructure());
   }
 }
