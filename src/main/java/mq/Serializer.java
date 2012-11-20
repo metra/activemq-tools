@@ -19,22 +19,24 @@ public class Serializer implements MessageListener {
   private final ObjectOutputStream objectOutputStream;
 
   public static void main(String[] args) throws JMSException, IOException {
+    logger.info("starting");
 
     if (args.length != 3) {
       printUsage();
     }
 
     String brokerUrl = args[0];
-    String queueName = args[1];
+    String destination = args[1];
     String destinationType = args[2];
 
     MessageListener serializer = new Serializer();
     if ("queue".equals(destinationType)) {
-      DestinationManager.listenToQueue(brokerUrl, queueName, serializer);
+      DestinationManager.listenToQueue(brokerUrl, destination, serializer);
     } else if ("topic".equals(destinationType)) {
-      DestinationManager.listenToTopic(brokerUrl, queueName, serializer);
+      DestinationManager.listenToTopic(brokerUrl, destination, serializer);
     } else {
       printUsage();
+      return;
     }
   }
 
