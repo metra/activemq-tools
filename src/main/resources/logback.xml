@@ -6,7 +6,7 @@
       <fileNamePattern>consumer.%d{yyyy-MM-dd}.log</fileNamePattern>
 
       <!-- keep how many days' worth of history -->
-      <maxHistory>2</maxHistory>
+      <maxHistory>5</maxHistory>
     </rollingPolicy>
 
     <encoder>
