@@ -26,12 +26,12 @@ public class Serializer implements MessageListener {
 
     String brokerUrl = args[0];
     String queueName = args[1];
-    String destinationSelection = args[2];
+    String destinationType = args[2];
 
     MessageListener serializer = new Serializer();
-    if ("queue".equals(destinationSelection)) {
+    if ("queue".equals(destinationType)) {
       DestinationManager.listenToQueue(brokerUrl, queueName, serializer);
-    } else if ("topic".equals(destinationSelection)) {
+    } else if ("topic".equals(destinationType)) {
       DestinationManager.listenToTopic(brokerUrl, queueName, serializer);
     } else {
       printUsage();
