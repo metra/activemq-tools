@@ -12,7 +12,7 @@ public class DestinationManager {
   private static final Logger logger = LoggerFactory.getLogger(DestinationManager.class);
 
   public static void listenToQueue(String brokerUrl, String queueName, MessageListener messageListener) throws JMSException {
-    logger.info("creating queue listener");
+    logger.info("creating queue listener to " + brokerUrl + " for queue " + queueName);
     ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
     Connection connection = connectionFactory.createConnection();
     Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -23,7 +23,7 @@ public class DestinationManager {
   }
 
   public static void listenToTopic(String brokerUrl, String topicName, MessageListener listener) throws JMSException {
-    logger.info("creating topic listener");
+    logger.info("creating listener to " + brokerUrl + " for topic " + topicName);
     ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
     Connection connection = connectionFactory.createConnection();
 //    connection.setClientID("unique_client_id_123");
@@ -36,7 +36,7 @@ public class DestinationManager {
   }
 
   public static SessionAndProducer createSessionAndProducer(String brokerUrl, String queueName) throws JMSException {
-    logger.info("creating producer");
+    logger.info("creating producer to " + brokerUrl + " for queue " + queueName);
     ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
     Connection connection = connectionFactory.createConnection();
     Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
