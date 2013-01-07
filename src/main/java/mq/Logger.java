@@ -44,6 +44,6 @@ public class Logger implements MessageListener {
   }
 
   private static void printUsage() {
-    System.out.println("usage: " + Logger.class.getSimpleName() + " <broker host:port> <queue name> {queue|topic}");
+    System.out.println("usage: " + Logger.class.getSimpleName() + " <broker host:port> <destination name> {queue|topic}");
   }
 }
