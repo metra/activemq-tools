@@ -15,6 +15,7 @@ public class Logger implements MessageListener {
 
     if (args.length != 3) {
       printUsage();
+      return;
     }
 
     String brokerUrl = args[0];
